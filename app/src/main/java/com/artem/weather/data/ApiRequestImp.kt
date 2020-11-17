@@ -45,6 +45,19 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
                 }
 
 
+                Log.i(TAG,"feels like " + data.main?.feels_like.toString())
+                Log.i(TAG,"temp " + data.main?.temp.toString())
+
+                Log.i(TAG,"wind speed " + data.wind?.speed.toString())
+                Log.i(TAG,"wind deg " + data.wind?.deg.toString())
+
+                Log.i(TAG,"timezone "  + data.timezone.toString())
+
+                Log.i(TAG,"name "  + data.name)
+
+
+
+
                 return true
             }
 
