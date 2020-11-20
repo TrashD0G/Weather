@@ -7,5 +7,4 @@ import android.widget.TextView
 interface ApiRequest {
 
     suspend fun getReguest(CITY:String,textView: TextView,applicationContext: Context):Boolean
-
 }

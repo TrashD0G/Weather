@@ -1,11 +1,10 @@
 package com.artem.weather.data
 
 import android.content.Context
-import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.artem.weather.dagger.DaggerNetworkComponent
-import com.artem.weather.presentation.TAG
+import com.artem.weather.domain.WeatherResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -25,6 +24,7 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
     @Inject
     lateinit var api:ApiOpenWeatherMap
 
+    lateinit var data:WeatherResponse
 
     init {
           DaggerNetworkComponent.create().injectApiRequestImp(this)
@@ -37,13 +37,7 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
 
             val response = api.getWeather(CITY, UNITS, TOKEN).awaitResponse()
             if (response.isSuccessful) {
-                val data = response.body()!!
-
-
-                withContext(Dispatchers.Main){
-
-                }
-
+                data = response.body()!!
 
                 return true
             }
@@ -60,7 +54,6 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
 
         } catch (e: Exception) {
 
-            Log.i(TAG, "Error!")
 
             withContext(Dispatchers.Main){
                 Toast.makeText(applicationContext,"No internet connection or site not responding!",
@@ -70,13 +63,11 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
 
             return false
 
-
         }
     }
 
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main
-
 
 }
