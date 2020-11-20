@@ -1,9 +1,10 @@
 package com.artem.weather.domain
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 
-class WeatherResponse {
+class WeatherResponse:Serializable {
 
     @SerializedName("sys")
     var sys: Sys? = null
@@ -20,16 +21,23 @@ class WeatherResponse {
     @SerializedName("name")
     var name:String = "null"
 
+    @SerializedName("weather")
+    var weather: List<Weather>? = null
+
+    @SerializedName("dt")
+    var dt:Int = 0
+
+
 }
 
-class Main {
+class Main:Serializable {
 
     @SerializedName("temp")
     var temp: Float = 0.0f
     @SerializedName("humidity")
-    var humidity: Float = 0.0f
+    var humidity: Int = 0
     @SerializedName("pressure")
-    var pressure: Float = 0.0f
+    var pressure: Int = 0
     @SerializedName("temp_min")
     var temp_min: Float = 0.0f
     @SerializedName("temp_max")
@@ -40,14 +48,29 @@ class Main {
 
 }
 
-class Sys {
+class Sys:Serializable {
     @SerializedName("country")
     var country: String? = null
 }
 
-class Wind{
+class Wind:Serializable{
     @SerializedName("speed")
     var speed:Float = 0.0f
     @SerializedName("deg")
     var deg:Float = 0.0f
 }
+
+class Weather:Serializable{
+    @SerializedName("id")
+    var id:Int = 0
+    @SerializedName("main")
+    var main:String = "null"
+    @SerializedName("description")
+    var description:String = "null"
+    @SerializedName("icon")
+    var icon:String = "null"
+}
+
+
+
+
