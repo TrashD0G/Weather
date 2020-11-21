@@ -2,24 +2,35 @@ package com.artem.weather.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.artem.weather.BR
 import com.artem.weather.R
 import com.artem.weather.dagger.DaggerNetworkComponent
+import com.artem.weather.data.ApiRequestImp
 import com.artem.weather.databinding.ActivityWeatherBinding
 import com.artem.weather.domain.WeatherModel
 import com.artem.weather.domain.WeatherResponse
 import kotlinx.android.synthetic.main.activity_weather.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
-class WeatherActivity : AppCompatActivity() {
+class WeatherActivity : AppCompatActivity(), CoroutineScope {
 
     @Inject
     lateinit var appApiImp:AppApiImp
+
+    @Inject
+    lateinit var apiRequestImp: ApiRequestImp
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +44,7 @@ class WeatherActivity : AppCompatActivity() {
         appApiImp.currentWeather(data.weather?.get(0)?.main,imageWeather)
 
 
-        val weatherModel = WeatherModel(
+         val weatherModel = WeatherModel(
                 data.name,
                 data.main?.temp.toString() + "\u2103",
                 appApiImp.currentTime,
@@ -53,10 +64,38 @@ class WeatherActivity : AppCompatActivity() {
 
         swipeRefreshLayout.setOnRefreshListener {
 
-            Toast.makeText(this,"Page refreshed!", Toast.LENGTH_LONG).show()
-            swipeRefreshLayout.isRefreshing = false
+            launch(Dispatchers.IO){
+                apiRequestImp.getReguest(data.name,applicationContext)
+
+                appApiImp.currentTime(apiRequestImp.data.dt)
+                appApiImp.currentWeather(apiRequestImp.data.weather?.get(0)?.main,imageWeather)
+
+
+
+                withContext(Dispatchers.Main){
+                     val weatherModell = WeatherModel(
+                         apiRequestImp.data.name,
+                         apiRequestImp.data.main?.temp.toString() + "\u2103",
+                        appApiImp.currentTime,
+                         apiRequestImp.data.main?.feels_like.toString(),
+                         apiRequestImp.data.main?.pressure.toString(),
+                         apiRequestImp.data.main?.humidity.toString(),
+                         apiRequestImp.data.wind?.speed.toString(),
+                         apiRequestImp.data.weather?.get(0)?.main.toString()
+                    )
+
+
+                    binding.setVariable(BR.weatherModel,weatherModell)
+                    
+                    swipeRefreshLayout.isRefreshing = false
+                }
+            }
+
 
         }
     }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main
 
 }
