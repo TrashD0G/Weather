@@ -59,8 +59,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
 
         binding.setVariable(BR.weatherModel,weatherModel)
 
-
-
+        
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swiperefresh)
 
         swipeRefreshLayout.setOnRefreshListener {
