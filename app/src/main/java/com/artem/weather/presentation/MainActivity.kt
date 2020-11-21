@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.artem.weather.R
 import com.artem.weather.dagger.DaggerNetworkComponent
 import com.artem.weather.data.ApiRequestImp
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -31,25 +32,19 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btnRespon: Button = findViewById(R.id.buttonRespon)
-        val menuText: TextView = findViewById(R.id.menu_text)
-        val cityName:EditText = findViewById(R.id.cityName)
-
-
-
 
         DaggerNetworkComponent.create().injectMainActivity(this)
 
 
 
-        btnRespon.setOnClickListener {
+        buttonRespon.setOnClickListener {
 
             if (appApiImp.inputChecker(cityName)){
 
                 val city = cityName.text.toString()
 
                 launch(Dispatchers.IO) {
-                    if(apiRequestImp.getReguest(city,menuText,applicationContext)){
+                    if(apiRequestImp.getReguest(city,applicationContext)){
 
                         appApiImp.startNewActivity(applicationContext,apiRequestImp.data)
                     }
@@ -61,10 +56,6 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
             }
 
         }
-
-
-
-
 
     }
 

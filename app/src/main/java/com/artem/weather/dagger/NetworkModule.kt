@@ -26,6 +26,8 @@ class NetworkModule {
     }
 
 
+
+
     @Singleton
     @Provides
   fun provideRetrofit(): ApiOpenWeatherMap {
