@@ -3,6 +3,8 @@ package com.artem.weather.presentation
 import android.content.Context
 import android.content.Intent
 import android.widget.EditText
+import android.widget.ImageView
+import com.artem.weather.R
 import com.artem.weather.domain.WeatherResponse
 import java.text.SimpleDateFormat
 import java.util.*
@@ -11,6 +13,7 @@ import java.util.*
 class AppApiImp:AppApi {
 
     lateinit var currentTime:String
+    lateinit var currentWeather:String
 
 
     override fun inputChecker(checkString: EditText): Boolean {
@@ -38,6 +41,20 @@ class AppApiImp:AppApi {
             currentTime  = sdf.format(timeDate)
 
             return currentTime
+
+    }
+
+    override fun currentWeather(rawWeather: String?,imageWeather:ImageView) {
+
+        when(rawWeather){
+            "Thunderstorm" -> imageWeather.setBackgroundResource(R.drawable.thunder)
+            "Drizzle" -> imageWeather.setBackgroundResource(R.drawable.drizzle)
+            "Rain" -> imageWeather.setBackgroundResource(R.drawable.drizzle)
+            "Snow" -> imageWeather.setBackgroundResource(R.drawable.snow)
+            "Mist","Smoke","Haze","Dust","Fog","Sand","Ash","Squall","Tornado", -> imageWeather.setBackgroundResource(R.drawable.fog)
+            "Clear"-> imageWeather.setBackgroundResource(R.drawable.sun)
+            "Clouds" -> imageWeather.setBackgroundResource(R.drawable.cloud)
+        }
 
     }
 

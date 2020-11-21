@@ -5,6 +5,10 @@ plugins {
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.0"
