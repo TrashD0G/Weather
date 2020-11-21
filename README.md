@@ -11,3 +11,5 @@
 1.Data Binding  
 2.Dagger 2  
 3.Kotlin coroutine  
+4.Gson  
+5. Retrofit
