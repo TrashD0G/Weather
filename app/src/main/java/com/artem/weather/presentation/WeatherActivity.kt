@@ -29,6 +29,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
     @Inject
     lateinit var apiRequestImp: ApiRequestImp
 
+    lateinit var weatherModel:WeatherModel
 
 
 
@@ -44,7 +45,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
         appApiImp.currentWeather(data.weather?.get(0)?.main,imageWeather)
 
 
-         val weatherModel = WeatherModel(
+          weatherModel = WeatherModel(
                 data.name,
                 data.main?.temp.toString() + "\u2103",
                 appApiImp.currentTime,
@@ -73,7 +74,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
 
 
                 withContext(Dispatchers.Main){
-                     val weatherModell = WeatherModel(
+                      weatherModel = WeatherModel(
                          apiRequestImp.data.name,
                          apiRequestImp.data.main?.temp.toString() + "\u2103",
                         appApiImp.currentTime,
@@ -85,7 +86,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
                     )
 
 
-                    binding.setVariable(BR.weatherModel,weatherModell)
+                    binding.setVariable(BR.weatherModel,weatherModel)
                     
                     swipeRefreshLayout.isRefreshing = false
                 }
