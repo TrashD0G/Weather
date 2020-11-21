@@ -1,7 +1,6 @@
 package com.artem.weather.data
 
 import android.content.Context
-import android.widget.TextView
 import android.widget.Toast
 import com.artem.weather.dagger.DaggerNetworkComponent
 import com.artem.weather.domain.WeatherResponse
@@ -31,7 +30,7 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
     }
 
 
-    override suspend fun getReguest(CITY: String, textView: TextView,applicationContext:Context): Boolean {
+    override suspend fun getReguest(CITY: String,applicationContext:Context): Boolean {
         try {
 
 
@@ -47,8 +46,9 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
                     Toast.makeText(applicationContext,"City name input error!", Toast.LENGTH_LONG).show()
                 }
 
-                return false
 
+
+                return false
             }
 
 

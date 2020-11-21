@@ -13,7 +13,6 @@ import java.util.*
 class AppApiImp:AppApi {
 
     lateinit var currentTime:String
-    lateinit var currentWeather:String
 
 
     override fun inputChecker(checkString: EditText): Boolean {
