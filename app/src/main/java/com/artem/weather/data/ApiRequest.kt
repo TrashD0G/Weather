@@ -5,5 +5,5 @@ import android.content.Context
 
 interface ApiRequest {
 
-    suspend fun getReguest(CITY:String,applicationContext: Context):Boolean
+    suspend fun getReguest(city: String, applicationContext: Context):Boolean
 }

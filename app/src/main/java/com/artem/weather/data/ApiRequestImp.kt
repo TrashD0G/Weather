@@ -13,7 +13,7 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 
-class ApiRequestImp():ApiRequest, CoroutineScope {
+class ApiRequestImp : ApiRequest, CoroutineScope {
 
 
     val TOKEN: String = "2c94931ab9b80fa4b073d54ac3e543e8"  //Use your own API key
@@ -21,27 +21,27 @@ class ApiRequestImp():ApiRequest, CoroutineScope {
 
 
     @Inject
-    lateinit var api:ApiOpenWeatherMap
+    lateinit var api: ApiOpenWeatherMap
 
-    lateinit var data:WeatherResponse
+    lateinit var data: WeatherResponse
 
     init {
           DaggerNetworkComponent.create().injectApiRequestImp(this)
     }
 
 
-    override suspend fun getReguest(CITY: String,applicationContext:Context): Boolean {
+    override suspend fun getReguest(city: String, applicationContext: Context): Boolean {
         try {
 
 
-            val response = api.getWeather(CITY, UNITS, TOKEN).awaitResponse()
+            val response = api.getWeather(city, UNITS, TOKEN).awaitResponse()
             if (response.isSuccessful) {
                 data = response.body()!!
 
                 return true
             }
 
-            else{
+            else {
                 withContext(Dispatchers.Main){
                     Toast.makeText(applicationContext,"City name input error!", Toast.LENGTH_LONG).show()
                 }

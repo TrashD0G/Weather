@@ -10,13 +10,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class AppApiImp:AppApi {
+class AppApiImp : AppApi {
 
-    lateinit var currentTime:String
+    lateinit var currentTime: String
 
 
     override fun inputChecker(checkString: EditText): Boolean {
-        val checkerCITY:String = checkString.text.toString()
+        val checkerCITY: String = checkString.text.toString()
 
         if(checkerCITY.trim().isNotEmpty()){
             return true
@@ -25,13 +25,13 @@ class AppApiImp:AppApi {
         return false
     }
 
-    override fun startNewActivity(context: Context,data:WeatherResponse) {
+    override fun startNewActivity(context: Context, data: WeatherResponse) {
         val intent = Intent(context, WeatherActivity::class.java)
-        intent.putExtra("DATA_RESPONSE",data)
+        intent.putExtra("DATA_RESPONSE", data)
         context.startActivity(intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
-    override fun currentTime(rawDate: Int):String {
+    override fun currentTime(rawDate: Int): String {
 
             val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)
 
@@ -43,7 +43,7 @@ class AppApiImp:AppApi {
 
     }
 
-    override fun currentWeather(rawWeather: String?,imageWeather:ImageView) {
+    override fun currentWeather(rawWeather: String?, imageWeather: ImageView) {
 
         when(rawWeather){
             "Thunderstorm" -> imageWeather.setBackgroundResource(R.drawable.thunder)

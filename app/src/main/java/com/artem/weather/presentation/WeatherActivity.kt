@@ -24,25 +24,25 @@ import kotlin.coroutines.CoroutineContext
 class WeatherActivity : AppCompatActivity(), CoroutineScope {
 
     @Inject
-    lateinit var appApiImp:AppApiImp
+    lateinit var appApiImp: AppApiImp
 
     @Inject
     lateinit var apiRequestImp: ApiRequestImp
 
-    lateinit var weatherModel:WeatherModel
+    lateinit var weatherModel: WeatherModel
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding:ActivityWeatherBinding = DataBindingUtil.setContentView(this,R.layout.activity_weather)
+        val binding:ActivityWeatherBinding = DataBindingUtil.setContentView(this, R.layout.activity_weather)
         val data = intent.getSerializableExtra("DATA_RESPONSE") as WeatherResponse
 
 
        DaggerNetworkComponent.create().injectWeatherActivity(this)
         appApiImp.currentTime(data.dt)
-        appApiImp.currentWeather(data.weather?.get(0)?.main,imageWeather)
+        appApiImp.currentWeather(data.weather?.get(0)?.main, imageWeather)
 
 
           weatherModel = WeatherModel(
@@ -57,7 +57,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
             )
 
 
-        binding.setVariable(BR.weatherModel,weatherModel)
+        binding.setVariable(BR.weatherModel, weatherModel)
 
 
         val swipeRefreshLayout: SwipeRefreshLayout = findViewById(R.id.swiperefresh)
@@ -65,10 +65,10 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
         swipeRefreshLayout.setOnRefreshListener {
 
             launch(Dispatchers.IO){
-                apiRequestImp.getReguest(data.name,applicationContext)
+                apiRequestImp.getReguest(data.name, applicationContext)
 
                 appApiImp.currentTime(apiRequestImp.data.dt)
-                appApiImp.currentWeather(apiRequestImp.data.weather?.get(0)?.main,imageWeather)
+                appApiImp.currentWeather(apiRequestImp.data.weather?.get(0)?.main, imageWeather)
 
 
 
@@ -85,7 +85,7 @@ class WeatherActivity : AppCompatActivity(), CoroutineScope {
                     )
 
 
-                    binding.setVariable(BR.weatherModel,weatherModel)
+                    binding.setVariable(BR.weatherModel, weatherModel)
                     
                     swipeRefreshLayout.isRefreshing = false
                 }
