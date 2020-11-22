@@ -67,9 +67,9 @@ dependencies {
     implementation 'com.google.dagger:dagger:2.29.1'
     kapt 'com.google.dagger:dagger-compiler:2.29.1'
 
-    //cardview
+    //cardView
     implementation "androidx.cardview:cardview:1.0.0"
 
-    //swipeRefrest
+    //swipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
