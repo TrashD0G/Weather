@@ -18,7 +18,7 @@ import kotlin.coroutines.CoroutineContext
 
 
 
-class MainActivity : AppCompatActivity(),CoroutineScope {
+class MainActivity : AppCompatActivity(), CoroutineScope {
 
 
     @Inject
@@ -44,15 +44,15 @@ class MainActivity : AppCompatActivity(),CoroutineScope {
                 val city = cityName.text.toString()
 
                 launch(Dispatchers.IO) {
-                    if(apiRequestImp.getReguest(city,applicationContext)){
+                    if(apiRequestImp.getReguest(city, applicationContext)){
 
-                        appApiImp.startNewActivity(applicationContext,apiRequestImp.data)
+                        appApiImp.startNewActivity(applicationContext, apiRequestImp.data)
                     }
 
                 }
             }
             else{
-                Toast.makeText(applicationContext,"Enter the name of the city!",Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext,"Enter the name of the city!", Toast.LENGTH_LONG).show()
             }
 
         }

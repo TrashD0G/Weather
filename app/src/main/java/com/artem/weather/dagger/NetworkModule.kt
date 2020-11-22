@@ -15,13 +15,13 @@ import javax.inject.Singleton
 class NetworkModule {
 
     @Provides
-    fun provideAppApiImp():AppApiImp{
+    fun provideAppApiImp() : AppApiImp{
         return AppApiImp()
     }
 
 
     @Provides
-    fun provideApiRequestImp():ApiRequestImp{
+    fun provideApiRequestImp() : ApiRequestImp{
         return ApiRequestImp()
     }
 
@@ -30,7 +30,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-  fun provideRetrofit(): ApiOpenWeatherMap {
+  fun provideRetrofit() : ApiOpenWeatherMap {
       return Retrofit.Builder().baseUrl("https://api.openweathermap.org/")
           .addConverterFactory(GsonConverterFactory.create())
           .build()

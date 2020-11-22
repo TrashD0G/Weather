@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
-class WeatherResponse:Serializable {
+class WeatherResponse : Serializable {
 
     @SerializedName("sys")
     var sys: Sys? = null
