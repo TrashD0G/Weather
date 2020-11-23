@@ -27,7 +27,6 @@ class WeatherResponse : Serializable {
     @SerializedName("dt")
     var dt:Int = 0
 
-
 }
 
 class Main:Serializable {
